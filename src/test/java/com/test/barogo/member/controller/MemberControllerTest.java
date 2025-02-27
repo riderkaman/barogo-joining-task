@@ -34,7 +34,7 @@ class MemberControllerTest {
     @DisplayName("비밀번호가 유효할 경우 회원가입 성공")
     void registerUser_ValidPassword_Success() throws Exception {
         // Given: 유효한 비밀번호를 포함한 DTO
-        MemberDto.RegisterReq validMember = new MemberDto.RegisterReq();
+        MemberDto.CreateReq validMember = new MemberDto.CreateReq();
         validMember.setMemberInputId("validMemberInputId");
         validMember.setName("validMemberName");
         validMember.setPassword("ValidPassword123!@");
@@ -51,7 +51,7 @@ class MemberControllerTest {
     @DisplayName("비밀번호가 유효하지 않을 경우 회원가입 실패")
     void registerUser_InvalidPassword_Fail() throws Exception {
         // Given: 유효하지 않은 비밀번호 (조건 미충족)
-        MemberDto.RegisterReq invalidMember = new MemberDto.RegisterReq();
+        MemberDto.CreateReq invalidMember = new MemberDto.CreateReq();
         invalidMember.setMemberInputId("invalidMemberInputId");
         invalidMember.setName("invalidMemberName");
         invalidMember.setPassword("weakpass");

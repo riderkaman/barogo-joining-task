@@ -16,14 +16,14 @@ import java.util.Date;
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String secretKey;
+    private String jwtSecret;
 
-    private SecretKey key;
+    private SecretKey secretKey;
     private static final long EXPIRATION_TIME = 6 * 60 * 60 * 1000; // 6시간
 
     @PostConstruct
     public void init() {
-        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username) {
@@ -31,14 +31,14 @@ public class JwtUtil {
                 .subject(username)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(key)
+                .signWith(secretKey)
                 .compact();
     }
 
     public Claims validateToken(String token) {
         try {
             return Jwts.parser()
-                    .verifyWith((SecretKey) key)
+                    .verifyWith(secretKey)
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();

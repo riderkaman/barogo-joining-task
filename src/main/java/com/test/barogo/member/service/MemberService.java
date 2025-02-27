@@ -5,11 +5,13 @@ import com.test.barogo.member.domain.Member;
 import com.test.barogo.member.dto.MemberDto;
 import com.test.barogo.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -25,10 +27,13 @@ public class MemberService {
 
     public MemberDto.LoginRes login(MemberDto.LoginReq req) {
         String password = req.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        Member member = memberRepository.findByMemberInputIdAndEncodedPassword(req.getMemberInputId(), encodedPassword);
+        Member member = memberRepository.findByMemberInputId(req.getMemberInputId());
         if (member == null) {
             throw new RuntimeException("no member found");
+        }
+
+        if (!passwordEncoder.matches(password, member.getEncodedPassword())) {
+            throw new RuntimeException("password does not match");
         }
 
         MemberDto.LoginRes loginRes = new MemberDto.LoginRes(member);
