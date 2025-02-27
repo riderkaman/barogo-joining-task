@@ -1,9 +1,9 @@
 package com.test.barogo.member.dto;
 
+import com.test.barogo.member.domain.Member;
 import com.test.barogo.member.service.ValidPassword;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class MemberDto {
 
     @Data
     @NoArgsConstructor
-    public static class RegisterReq {
+    public static class CreateReq {
         @NotBlank
         private String memberInputId;
 
@@ -25,18 +25,31 @@ public class MemberDto {
         @NotBlank
         private String name;
 
-       /* @Builder
-        public Member dtoToDomain(RegisterReq req) {
+        @Builder
+        public Member dtoToDomain(MemberDto.CreateReq req) {
             return Member.builder()
-                    .memberInputId(req.memberInputId)
-                    .password(req.password)
-                    .email(req.email)
-                    .phoneNumber(req.phoneNumber)
-                    .accountType(req.accountType)
+                    .memberInputId(req.getMemberInputId())
+                    .encodedPassword(req.getPassword())
+                    .name(req.getName())
                     .created(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .updated(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .build();
-        }*/
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class CreateRes {
+
+        private String memberId;
+        private String memberInputId;
+        private String name;
+
+        public CreateRes(Member member) {
+            this.memberId = member.getMemberId();
+            this.memberInputId = member.getMemberInputId();
+            this.name = member.getName();
+        }
     }
 
     @Data

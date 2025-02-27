@@ -19,9 +19,11 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("")
-    public ResponseEntity<String> create(@RequestBody @Valid MemberDto.RegisterReq req) {
-
-        return ResponseEntity.status(HttpStatus.OK).body("userId");
+    public ResponseEntity<MemberDto.CreateRes> create(@RequestBody @Valid MemberDto.CreateReq req) {
+        MemberDto.CreateRes createRes = memberService.create(req);
+        return ResponseEntity.status(HttpStatus.OK).body(createRes);
     }
+
+
 
 }

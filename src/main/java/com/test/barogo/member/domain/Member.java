@@ -22,7 +22,7 @@ public class Member {
 
     private String memberInputId;
 
-    private String password;
+    private String encodedPassword;
 
     private String name;
 
