@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: barogo
+
+jwt:
+  secret: barogo-secret-key-used-to-environment-variable-or-spring-config-server

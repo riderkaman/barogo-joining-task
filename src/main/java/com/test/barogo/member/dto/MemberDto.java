@@ -55,7 +55,24 @@ public class MemberDto {
     @Data
     @NoArgsConstructor
     public static class LoginReq {
+        @NotBlank
         private String memberInputId;
+
+        @NotBlank
         private String password;
+    }
+
+    @Data
+    public static class LoginRes {
+        private String memberId;
+        private String memberInputId;
+        private String name;
+        private String jwt;
+
+        public LoginRes(Member member) {
+            this.memberId = member.getMemberId();
+            this.memberInputId = member.getMemberInputId();
+            this.name = member.getName();
+        }
     }
 }
