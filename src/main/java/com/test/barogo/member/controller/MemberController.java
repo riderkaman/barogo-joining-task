@@ -1,6 +1,5 @@
 package com.test.barogo.member.controller;
 
-import com.test.barogo.member.domain.Member;
 import com.test.barogo.member.dto.MemberDto;
 import com.test.barogo.member.service.MemberService;
 import jakarta.validation.Valid;
