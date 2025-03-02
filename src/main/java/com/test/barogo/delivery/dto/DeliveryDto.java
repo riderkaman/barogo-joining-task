@@ -2,6 +2,7 @@ package com.test.barogo.delivery.dto;
 
 import com.test.barogo.delivery.domain.Delivery;
 import com.test.barogo.delivery.service.ValidDateRange;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,5 +43,25 @@ public class DeliveryDto {
         }
     }
 
+    @Data
+    public static class DestinationAddressChangeReq {
+        @NotBlank
+        private String deliveryId;
 
+        @NotBlank
+        private String destinationAddress;
+    }
+
+    @Data
+    public static class DestinationAddressChangeRes {
+        private String deliveryId;
+        private String destinationAddress;
+        private String status;
+
+        public DestinationAddressChangeRes(String deliveryId, String destinationAddress, String status) {
+            this.deliveryId = deliveryId;
+            this.destinationAddress = destinationAddress;
+            this.status = status;
+        }
+    }
 }

@@ -24,5 +24,9 @@ public class Delivery {
     private LocalDate orderDate;
     private String memberId;
     private String status;
+
+    public void updateDeliveryDestinationAddress(String destinationAddress) {
+        this.destinationAddress = destinationAddress;
+    }
 }
 

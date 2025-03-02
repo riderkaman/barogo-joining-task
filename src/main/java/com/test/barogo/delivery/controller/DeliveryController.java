@@ -7,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,6 +26,12 @@ public class DeliveryController {
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
+    @PutMapping("/{deliveryId}/destination-address")
+    public ResponseEntity<DeliveryDto.DestinationAddressChangeRes> updateDestinationAddress(@RequestBody DeliveryDto.DestinationAddressChangeReq req,
+                                                                                            @PathVariable String deliveryId) {
+        DeliveryDto.DestinationAddressChangeRes res = deliveryService.updateDestinationAddress(req, deliveryId);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
 
 
 }
